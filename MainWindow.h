@@ -23,6 +23,7 @@
 #include <qt5/QtWidgets/QMainWindow>
 #include <qt5/QtWidgets/QWidget>
 #include <qt5/QtCore/QList>
+#include <qt5/QtCore/QTimer>
 
 #include "ParamEdit.h"
 
@@ -38,11 +39,13 @@ public:
     
 private slots:
     void updateShader();
+    void tick();
     
 private:
     Ui::MainWindow *m_ui;
     QList<ParamEdit *> m_param_edits;
     QString m_shader_source;
+    QTimer *m_timer;
 };
 
 #endif

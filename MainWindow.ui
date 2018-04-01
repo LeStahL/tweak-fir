@@ -13,6 +13,43 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">MainWindow
+{
+	background-color: rgb(27, 27, 27);
+	font: 75 14pt &quot;Noto Sans&quot;;
+}
+
+QGroupBox, QLabel, QRadioButton, QMenuBar, QMenu, QAction
+{
+	color: rgb(227, 47, 15);
+	border-color: rgb(227, 69, 16);
+	selection-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(198, 22, 22, 255), stop:1 rgba(255, 52, 26, 255));
+	font: 75 14pt &quot;Noto Sans&quot;;
+	selection-color: rgb(251, 255, 0);
+	
+	alternate-background-color: rgb(45, 45, 45);
+}
+
+QLineEdit, QDoubleSpinBox, QComboBox,QPushButton
+{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(198, 22, 22, 255), stop:1 rgba(255, 52, 26, 255));
+	color: rgb(251, 255, 0);
+    font: 75 14pt &quot;Noto Sans&quot;;
+	border-color: rgb(255, 238, 0);
+}
+
+QDial
+{
+	
+	background-color: rgb(168, 21, 16);
+	
+	color: rgb(255, 255, 0);
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -113,6 +150,9 @@
       </item>
       <item row="0" column="1">
        <widget class="QGroupBox" name="groupBox_2">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="title">
          <string>Wave Form</string>
         </property>
@@ -171,6 +211,44 @@
         </layout>
        </widget>
       </item>
+      <item row="1" column="1">
+       <widget class="QGroupBox" name="groupBox_4">
+        <property name="title">
+         <string>Playback</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_8">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Rate</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBox">
+               <item>
+                <property name="text">
+                 <string>44.1 kHz</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>48 kHz</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>
@@ -181,7 +259,7 @@
      <x>0</x>
      <y>0</y>
      <width>560</width>
-     <height>27</height>
+     <height>32</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

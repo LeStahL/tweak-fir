@@ -30,6 +30,7 @@ set(tweak_SRC
     tweak.cpp
     MainWindow.cpp
     ParamEdit.cpp
+#     RenderSoundWidget.cpp
 )
 
 add_executable(tweak-fir ${tweak_SRC})

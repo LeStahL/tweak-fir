@@ -32,6 +32,10 @@ MainWindow::MainWindow(const QApplication &app, QWidget *parent)
     m_ui->releaseWidget->setText("Release");
     
     m_ui->widget->setText("Freq");
+    
+    m_timer = new QTimer(this);
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(tick()));
+    m_timer->start(1000./60.);
 }
 
 MainWindow::~MainWindow()
@@ -133,4 +137,8 @@ void MainWindow::updateShader()
     }
     
     printf("Shader source:\n\n%s\n", m_shader_source.toStdString().c_str());
+}
+
+void MainWindow::tick()
+{
 }
