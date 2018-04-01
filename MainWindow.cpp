@@ -25,6 +25,11 @@ MainWindow::MainWindow(const QApplication &app, QWidget *parent)
     , m_ui(new Ui::MainWindow)
 {
     m_ui->setupUi(this);
+    
+    m_ui->attackWidget->setText("Attack");
+    m_ui->decayWidget->setText("Decay");
+    m_ui->sustainWidget->setText("Sustain");
+    m_ui->releaseWidget->setText("Release");
 }
 
 MainWindow::~MainWindow()

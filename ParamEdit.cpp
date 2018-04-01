@@ -59,3 +59,24 @@ void ParamEdit::highChanged()
     m_ui->doubleSpinBox->setMaximum(m_ui->lineEdit_2->text().toDouble());
     m_ui->doubleSpinBox->setSingleStep((m_ui->lineEdit_2->text().toDouble()-m_ui->lineEdit->text().toDouble())/100.);
 }
+
+void ParamEdit::setText(QString text)
+{
+    m_ui->label->setText(text);
+}
+
+QString ParamEdit::text()
+{
+    return m_ui->label->text();
+}
+
+void ParamEdit::setValue(double value)
+{
+    m_ui->doubleSpinBox->setValue(value);
+    m_ui->dial->setValue(value);
+}
+
+double ParamEdit::value()
+{
+    return m_ui->doubleSpinBox->value();
+}

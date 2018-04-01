@@ -28,28 +28,28 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
-              <widget class="ParamEdit" name="widget_2" native="true"/>
+              <widget class="ParamEdit" name="attackWidget" native="true"/>
              </item>
             </layout>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
-              <widget class="ParamEdit" name="widget_3" native="true"/>
+              <widget class="ParamEdit" name="decayWidget" native="true"/>
              </item>
             </layout>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
-              <widget class="ParamEdit" name="widget_4" native="true"/>
+              <widget class="ParamEdit" name="sustainWidget" native="true"/>
              </item>
             </layout>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
-              <widget class="ParamEdit" name="widget_5" native="true"/>
+              <widget class="ParamEdit" name="releaseWidget" native="true"/>
              </item>
             </layout>
            </item>
@@ -70,6 +70,9 @@
             <widget class="QRadioButton" name="radioButton">
              <property name="text">
               <string>Sine</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
