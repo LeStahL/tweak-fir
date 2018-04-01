@@ -29,6 +29,7 @@ find_package(Qt5 COMPONENTS Core Widgets Gui)
 set(tweak_SRC
     tweak.cpp
     MainWindow.cpp
+    ParamEdit.cpp
 )
 
 add_executable(tweak-fir ${tweak_SRC})

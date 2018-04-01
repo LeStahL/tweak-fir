@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>560</width>
-    <height>388</height>
+    <height>416</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,56 +28,28 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
-              <widget class="QLabel" name="label">
-               <property name="text">
-                <string>Attack</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QDial" name="dial"/>
+              <widget class="ParamEdit" name="widget_2" native="true"/>
              </item>
             </layout>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
-              <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>Decay</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QDial" name="dial_2"/>
+              <widget class="ParamEdit" name="widget_3" native="true"/>
              </item>
             </layout>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
-              <widget class="QLabel" name="label_3">
-               <property name="text">
-                <string>Sustain</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QDial" name="dial_3"/>
+              <widget class="ParamEdit" name="widget_4" native="true"/>
              </item>
             </layout>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
-              <widget class="QLabel" name="label_4">
-               <property name="text">
-                <string>Release</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QDial" name="dial_4"/>
+              <widget class="ParamEdit" name="widget_5" native="true"/>
              </item>
             </layout>
            </item>
@@ -147,12 +119,22 @@
              <item>
               <widget class="QLineEdit" name="lineEdit"/>
              </item>
+             <item>
+              <widget class="QPushButton" name="pushButton">
+               <property name="text">
+                <string>Gen Shader</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </item>
           </layout>
          </item>
         </layout>
        </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QWidget" name="widget" native="true"/>
       </item>
      </layout>
     </item>
@@ -200,6 +182,14 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ParamEdit</class>
+   <extends>QWidget</extends>
+   <header>ParamEdit.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
