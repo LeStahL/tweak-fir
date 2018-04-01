@@ -38,7 +38,7 @@ public:
     
     void setValue(double val);
     double value();
-
+    
 private slots:
     void valueChanged();
     void knobTurned();

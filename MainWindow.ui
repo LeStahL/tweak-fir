@@ -17,6 +17,44 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="0">
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="title">
+         <string>FIR properties</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item>
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>Scaling function</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit">
+               <property name="text">
+                <string>exp(-p0*t)</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton">
+               <property name="text">
+                <string>Gen Shader</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
       <item row="0" column="0">
        <widget class="QGroupBox" name="groupBox">
         <property name="title">
@@ -42,7 +80,9 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
-              <widget class="ParamEdit" name="sustainWidget" native="true"/>
+              <widget class="ParamEdit" name="sustainWidget" native="true">
+               <zorder>groupBox_2</zorder>
+              </widget>
              </item>
             </layout>
            </item>
@@ -54,6 +94,19 @@
             </layout>
            </item>
           </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -99,45 +152,24 @@
            </item>
           </layout>
          </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QGroupBox" name="groupBox_3">
-        <property name="title">
-         <string>FIR properties</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_7">
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_6">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_6">
-             <item>
-              <widget class="QLabel" name="label_5">
-               <property name="text">
-                <string>Scaling function</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit"/>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton">
-               <property name="text">
-                <string>Gen Shader</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
+          <widget class="ParamEdit" name="widget" native="true"/>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QWidget" name="widget" native="true"/>
       </item>
      </layout>
     </item>
@@ -161,7 +193,15 @@
     <addaction name="actionSave"/>
     <addaction name="actionQuit"/>
    </widget>
+   <widget class="QMenu" name="menuShader">
+    <property name="title">
+     <string>Shader</string>
+    </property>
+    <addaction name="actionGenerate"/>
+    <addaction name="actionExport"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuShader"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew">
@@ -184,6 +224,16 @@
     <string>Quit</string>
    </property>
   </action>
+  <action name="actionGenerate">
+   <property name="text">
+    <string>Generate</string>
+   </property>
+  </action>
+  <action name="actionExport">
+   <property name="text">
+    <string>Export</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -194,5 +244,25 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>updateShader()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>382</x>
+     <y>302</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>279</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>updateShader()</slot>
+ </slots>
 </ui>

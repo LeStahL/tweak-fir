@@ -22,6 +22,9 @@
 
 #include <qt5/QtWidgets/QMainWindow>
 #include <qt5/QtWidgets/QWidget>
+#include <qt5/QtCore/QList>
+
+#include "ParamEdit.h"
 
 namespace Ui {class MainWindow;}
 
@@ -33,8 +36,13 @@ public:
     MainWindow(const QApplication &app, QWidget *parent=0);
     virtual ~MainWindow();
     
+private slots:
+    void updateShader();
+    
 private:
     Ui::MainWindow *m_ui;
+    QList<ParamEdit *> m_param_edits;
+    QString m_shader_source;
 };
 
 #endif
