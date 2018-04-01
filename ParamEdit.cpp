@@ -34,10 +34,28 @@ ParamEdit::~ParamEdit()
 
 void ParamEdit::valueChanged()
 {
-    printf("new value by edit.\n");
+    m_ui->dial->setValue(m_ui->doubleSpinBox->value());
 }
 
 void ParamEdit::knobTurned()
 {
-    printf("new value by knob.\n");
+    m_ui->doubleSpinBox->setValue(m_ui->dial->value());
+}
+
+void ParamEdit::lowChanged()
+{
+    m_ui->dial->setMinimum(m_ui->lineEdit->text().toDouble());
+    m_ui->dial->setSingleStep((m_ui->lineEdit_2->text().toDouble()-m_ui->lineEdit->text().toDouble())/100.);
+    
+    m_ui->doubleSpinBox->setMinimum(m_ui->lineEdit->text().toDouble());
+    m_ui->doubleSpinBox->setSingleStep((m_ui->lineEdit_2->text().toDouble()-m_ui->lineEdit->text().toDouble())/100.);
+}
+
+void ParamEdit::highChanged()
+{
+    m_ui->dial->setMaximum(m_ui->lineEdit_2->text().toDouble());
+    m_ui->dial->setSingleStep((m_ui->lineEdit_2->text().toDouble()-m_ui->lineEdit->text().toDouble())/100.);
+    
+    m_ui->doubleSpinBox->setMaximum(m_ui->lineEdit_2->text().toDouble());
+    m_ui->doubleSpinBox->setSingleStep((m_ui->lineEdit_2->text().toDouble()-m_ui->lineEdit->text().toDouble())/100.);
 }

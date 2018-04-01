@@ -42,6 +42,8 @@ public:
 private slots:
     void valueChanged();
     void knobTurned();
+    void lowChanged();
+    void highChanged();
     
 private:
     Ui::ParamEdit *m_ui;

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>459</width>
-    <height>78</height>
+    <height>72</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,6 +39,9 @@
    </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <property name="sizeConstraint">
       <enum>QLayout::SetNoConstraint</enum>
      </property>
@@ -47,7 +50,7 @@
        <item>
         <widget class="QLabel" name="label_2">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -61,12 +64,15 @@
         </widget>
        </item>
        <item>
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+        <widget class="QLineEdit" name="lineEdit">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="text">
+          <string>0</string>
          </property>
         </widget>
        </item>
@@ -88,12 +94,15 @@
         </widget>
        </item>
        <item>
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+        <widget class="QLineEdit" name="lineEdit_2">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="text">
+          <string>100</string>
          </property>
         </widget>
        </item>
@@ -102,10 +111,18 @@
     </layout>
    </item>
    <item>
-    <widget class="QDial" name="dial"/>
+    <widget class="QDial" name="dial">
+     <property name="maximum">
+      <number>100</number>
+     </property>
+    </widget>
    </item>
    <item>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+    <widget class="QDoubleSpinBox" name="doubleSpinBox">
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
@@ -143,9 +160,43 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>lineEdit</sender>
+   <signal>editingFinished()</signal>
+   <receiver>ParamEdit</receiver>
+   <slot>lowChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>206</x>
+     <y>18</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>229</x>
+     <y>35</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_2</sender>
+   <signal>editingFinished()</signal>
+   <receiver>ParamEdit</receiver>
+   <slot>highChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>204</x>
+     <y>53</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>229</x>
+     <y>35</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>knobTurned()</slot>
   <slot>valueChanged()</slot>
+  <slot>lowChanged()</slot>
+  <slot>highChanged()</slot>
  </slots>
 </ui>
