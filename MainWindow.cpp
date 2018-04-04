@@ -78,9 +78,6 @@ void MainWindow::updateShader()
         }
     }
     
-    for(int i=0; i<contained_param_numbers.size(); ++i)
-        printf("%d\n", contained_param_numbers[i]);
-    
     m_shader_source 
         = QString("#version 130\n")
         + QString("uniform float iAttack;")
