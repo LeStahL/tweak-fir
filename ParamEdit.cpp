@@ -19,6 +19,7 @@
 
 #include "ParamEdit.h"
 #include "ui_ParamEdit.h"
+#include "MainWindow.h"
 
 ParamEdit::ParamEdit(QWidget *parent)
     : QWidget(parent)
@@ -35,29 +36,40 @@ ParamEdit::~ParamEdit()
 void ParamEdit::valueChanged()
 {
     m_ui->dial->setValue(m_ui->doubleSpinBox->value());
+    
+    ((MainWindow *)parent())->setSaved(false);
 }
 
 void ParamEdit::knobTurned()
 {
     m_ui->doubleSpinBox->setValue(m_ui->dial->value());
+    
+    ((MainWindow *)parent())->setSaved(false);
+}
+
+void ParamEdit::updateControls()
+{
+    m_ui->dial->setMinimum(m_ui->lineEdit->text().toDouble());
+    m_ui->dial->setMaximum(m_ui->lineEdit_2->text().toDouble());
+    m_ui->dial->setSingleStep((m_ui->lineEdit_2->text().toDouble()-m_ui->lineEdit->text().toDouble())/100.);
+    
+    m_ui->doubleSpinBox->setMinimum(m_ui->lineEdit->text().toDouble());
+    m_ui->doubleSpinBox->setMaximum(m_ui->lineEdit_2->text().toDouble());
+    m_ui->doubleSpinBox->setSingleStep((m_ui->lineEdit_2->text().toDouble()-m_ui->lineEdit->text().toDouble())/100.);
 }
 
 void ParamEdit::lowChanged()
 {
-    m_ui->dial->setMinimum(m_ui->lineEdit->text().toDouble());
-    m_ui->dial->setSingleStep((m_ui->lineEdit_2->text().toDouble()-m_ui->lineEdit->text().toDouble())/100.);
+    updateControls();
     
-    m_ui->doubleSpinBox->setMinimum(m_ui->lineEdit->text().toDouble());
-    m_ui->doubleSpinBox->setSingleStep((m_ui->lineEdit_2->text().toDouble()-m_ui->lineEdit->text().toDouble())/100.);
+    ((MainWindow *)parent())->setSaved(false);
 }
 
 void ParamEdit::highChanged()
 {
-    m_ui->dial->setMaximum(m_ui->lineEdit_2->text().toDouble());
-    m_ui->dial->setSingleStep((m_ui->lineEdit_2->text().toDouble()-m_ui->lineEdit->text().toDouble())/100.);
+    updateControls();
     
-    m_ui->doubleSpinBox->setMaximum(m_ui->lineEdit_2->text().toDouble());
-    m_ui->doubleSpinBox->setSingleStep((m_ui->lineEdit_2->text().toDouble()-m_ui->lineEdit->text().toDouble())/100.);
+    ((MainWindow *)parent())->setSaved(false);
 }
 
 void ParamEdit::setText(QString text)
@@ -79,4 +91,26 @@ void ParamEdit::setValue(double value)
 double ParamEdit::value()
 {
     return m_ui->doubleSpinBox->value();
+}
+
+double ParamEdit::lowerLimit()
+{
+    return m_ui->lineEdit->text().toDouble();
+}
+
+double ParamEdit::upperLimit()
+{
+    return m_ui->lineEdit->text().toDouble();
+}
+
+void ParamEdit::setLowerLimit(double val)
+{
+    m_ui->lineEdit->setText(QString::number(val));
+    updateControls();
+}
+
+void ParamEdit::setUpperLimit(double val)
+{
+    m_ui->lineEdit_2->setText(QString::number(val));
+    updateControls();
 }

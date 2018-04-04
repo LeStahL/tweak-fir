@@ -10,6 +10,15 @@
     <height>416</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Noto Sans 12</family>
+    <pointsize>14</pointsize>
+    <weight>9</weight>
+    <italic>false</italic>
+    <bold>false</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -23,7 +32,7 @@
 	border-color: rgb(255, 255, 0);
 	color: rgb(255, 255, 0);
 	alternate-background-color: rgb(27, 27, 27);
-	font: 75 14pt &quot;Noto Sans&quot;;
+	font: 75 14pt &quot;Noto Sans&quot; bold;
 }
 
 QGroupBox, QLabel, QRadioButton, QMenuBar, QMenu, QAction
@@ -67,7 +76,7 @@ QDial
          <x>0</x>
          <y>0</y>
          <width>542</width>
-         <height>313</height>
+         <height>286</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -199,9 +208,7 @@ QDial
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_3">
                  <item>
-                  <widget class="ParamEdit" name="sustainWidget" native="true">
-                   <zorder>groupBox_2</zorder>
-                  </widget>
+                  <widget class="ParamEdit" name="sustainWidget" native="true"/>
                  </item>
                 </layout>
                </item>
@@ -292,47 +299,112 @@ QDial
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
+    <addaction name="actionSave_As"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuShader">
     <property name="title">
      <string>Shader</string>
     </property>
-    <addaction name="actionGenerate"/>
     <addaction name="actionExport"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuShader"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNew"/>
+   <addaction name="actionOpen"/>
+   <addaction name="actionSave"/>
+   <addaction name="actionSave_As"/>
+   <addaction name="actionExport"/>
+   <addaction name="separator"/>
+   <addaction name="actionPlay"/>
+  </widget>
   <action name="actionNew">
+   <property name="icon">
+    <iconset theme="document-new"/>
+   </property>
    <property name="text">
     <string>New</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
   </action>
   <action name="actionOpen">
+   <property name="icon">
+    <iconset theme="document-open"/>
+   </property>
    <property name="text">
     <string>Open</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="actionSave">
+   <property name="icon">
+    <iconset theme="document-save"/>
+   </property>
    <property name="text">
     <string>Save</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionQuit">
+   <property name="icon">
+    <iconset theme="exit"/>
+   </property>
    <property name="text">
     <string>Quit</string>
    </property>
-  </action>
-  <action name="actionGenerate">
-   <property name="text">
-    <string>Generate</string>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="actionExport">
+   <property name="icon">
+    <iconset theme="system-run"/>
+   </property>
    <property name="text">
     <string>Export</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionPlay">
+   <property name="icon">
+    <iconset theme="media-playback-start"/>
+   </property>
+   <property name="text">
+    <string>Play</string>
+   </property>
+   <property name="shortcut">
+    <string>Space</string>
+   </property>
+  </action>
+  <action name="actionSave_As">
+   <property name="icon">
+    <iconset theme="document-save-as"/>
+   </property>
+   <property name="text">
+    <string>Save As</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
    </property>
   </action>
  </widget>
@@ -353,8 +425,120 @@ QDial
    <slot>updateShader()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>382</x>
-     <y>302</y>
+     <x>336</x>
+     <y>333</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>279</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionNew</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fileNew()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>279</x>
+     <y>207</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>279</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionOpen</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fileOpen()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>279</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionPlay</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>startPlay()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>279</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionQuit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fileExit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>279</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSave</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fileSave()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>279</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSave_As</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fileSaveAs()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>279</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionExport</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>shaderExport()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>279</x>
+     <y>207</y>
     </hint>
     <hint type="destinationlabel">
      <x>279</x>
@@ -365,5 +549,12 @@ QDial
  </connections>
  <slots>
   <slot>updateShader()</slot>
+  <slot>fileExit()</slot>
+  <slot>startPlay()</slot>
+  <slot>fileSave()</slot>
+  <slot>fileSaveAs()</slot>
+  <slot>shaderExport()</slot>
+  <slot>fileNew()</slot>
+  <slot>fileOpen()</slot>
  </slots>
 </ui>

@@ -20,9 +20,17 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
+#include <QFile>
+#include <QDataStream>
+#include <QTextStream>
+#include <QFileDialog>
+#include <QMessageBox>
+
 MainWindow::MainWindow(const QApplication &app, QWidget *parent)
     : QMainWindow(parent, 0)
     , m_ui(new Ui::MainWindow)
+    , m_saved(true)
+    , m_filename("")
 {
     m_ui->setupUi(this);
     
@@ -36,6 +44,8 @@ MainWindow::MainWindow(const QApplication &app, QWidget *parent)
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(tick()));
     m_timer->start(1000./60.);
+    
+    reset();
 }
 
 MainWindow::~MainWindow()
@@ -136,9 +146,193 @@ void MainWindow::updateShader()
         m_ui->verticalLayout_6->update();
     }
     
-    printf("Shader source:\n\n%s\n", m_shader_source.toStdString().c_str());
+    m_saved = false;
 }
 
 void MainWindow::tick()
 {
+}
+
+void MainWindow::shaderExport()
+{
+    QString filename = QFileDialog::getSaveFileName(this, "Export...", "", "Fragment shader source (*.frag)");
+    
+    QFile f(filename);
+    if(!f.open(QIODevice::WriteOnly))
+        QMessageBox::critical(this, QString("Could not save file") + filename, f.errorString());
+        
+    QTextStream fo(&f);
+    fo << m_shader_source;
+    f.close();
+}
+
+void MainWindow::fileNew()
+{
+    if(!m_saved)
+    {
+        QMessageBox::StandardButton reply = QMessageBox::question(this, "New without saving?", "Tool contains unsaved work. Save?", QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+        if(reply == QMessageBox::Yes)
+        {
+            fileSave();
+            reset();
+        }
+        else if(reply == QMessageBox::No)
+            reset();
+    }
+    else reset();
+}
+
+void MainWindow::fileOpen()
+{
+    if(!m_saved)
+    {
+        QMessageBox::StandardButton reply = QMessageBox::question(this, "Open without saving?", "Tool contains unsaved work. Save?", QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+        if(reply == QMessageBox::Yes)
+        {
+            fileSave();
+            open();
+        }
+        else if(reply == QMessageBox::No)
+            open();
+    }
+    else open();
+}
+
+void MainWindow::startPlay()
+{
+    
+}
+
+void MainWindow::fileExit()
+{
+    if(!m_saved)
+    {
+        QMessageBox::StandardButton reply = QMessageBox::question(this, "Exit without saving?", "Tool contains unsaved work. Save?", QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+        if(reply == QMessageBox::Yes)
+        {
+            fileSave();
+            close();
+        }
+        else if(reply == QMessageBox::No)
+            close();
+    }
+    else close();
+}
+
+void MainWindow::fileSave()
+{
+    if(!m_saved)
+    {
+        if(m_filename.isEmpty())
+        {
+            fileSaveAs();
+        }
+        
+        QFile f(m_filename);
+        if(!f.open(QIODevice::WriteOnly))
+            QMessageBox::critical(this, QString("Could not save file") + m_filename, f.errorString());
+            
+        QDataStream fo(&f);
+        
+        //adsr envelope / double
+        fo << m_ui->attackWidget->lowerLimit() << m_ui->attackWidget->upperLimit() << m_ui->attackWidget->value();
+        fo << m_ui->decayWidget->lowerLimit() << m_ui->decayWidget->upperLimit() << m_ui->decayWidget->value();
+        fo << m_ui->sustainWidget->lowerLimit() << m_ui->sustainWidget->upperLimit() << m_ui->sustainWidget->value();
+        fo << m_ui->releaseWidget->lowerLimit() << m_ui->releaseWidget->upperLimit() << m_ui->releaseWidget->value();
+        
+        //wave form / bool
+        fo << m_ui->radioButton->isChecked() << m_ui->radioButton_2->isChecked() << m_ui->radioButton_3->isChecked() << m_ui->radioButton_4->isChecked();
+        
+        //playback settings / int 
+        fo << m_ui->comboBox->currentIndex();
+        
+        //fir scaling function / QString
+        fo << m_ui->lineEdit->text();
+        
+        //fir parameters: until end; double
+        for(int i=0; i<m_param_edits.size(); ++i)
+        {
+            fo << m_param_edits[i]->lowerLimit() << m_param_edits[i]->upperLimit() << m_param_edits[i]->value();
+        }
+        
+        f.close();
+        
+        m_saved = true;
+    }
+}
+
+void MainWindow::fileSaveAs()
+{
+    m_filename = QFileDialog::getSaveFileName(this, "Save As...", "", "Binary (*)");
+    
+}
+
+void MainWindow::setSaved(bool saved)
+{
+    m_saved = saved;
+}
+
+void MainWindow::reset()
+{
+    m_saved = true;
+    m_filename = "";
+    
+    m_ui->radioButton->setChecked(true);
+    
+    m_ui->comboBox->setCurrentIndex(0);
+    
+    m_ui->attackWidget->setLowerLimit(0.);
+    m_ui->attackWidget->setUpperLimit(100.);
+    m_ui->attackWidget->setValue(0.);
+    
+    m_ui->decayWidget->setLowerLimit(0.);
+    m_ui->decayWidget->setUpperLimit(100.);
+    m_ui->decayWidget->setValue(0.);
+    
+    m_ui->sustainWidget->setLowerLimit(0.);
+    m_ui->sustainWidget->setUpperLimit(100.);
+    m_ui->sustainWidget->setValue(0.);
+    
+    m_ui->releaseWidget->setLowerLimit(0.);
+    m_ui->releaseWidget->setUpperLimit(100.);
+    m_ui->releaseWidget->setValue(0.);
+    
+    m_ui->lineEdit->setText("exp(-p0*t)");
+    updateShader();
+}
+
+void MainWindow::open()
+{
+    m_filename = QFileDialog::getOpenFileName(this, "Open...", "", "Binary (*)");
+    
+    QFile f(m_filename);
+    if(!f.open(QIODevice::WriteOnly))
+        QMessageBox::critical(this, QString("Could not open file") + m_filename, f.errorString());
+        
+    QDataStream fo(&f);
+    
+    //adsr envelope / double
+    fo << m_ui->attackWidget->lowerLimit() << m_ui->attackWidget->upperLimit() << m_ui->attackWidget->value();
+    fo << m_ui->decayWidget->lowerLimit() << m_ui->decayWidget->upperLimit() << m_ui->decayWidget->value();
+    fo << m_ui->sustainWidget->lowerLimit() << m_ui->sustainWidget->upperLimit() << m_ui->sustainWidget->value();
+    fo << m_ui->releaseWidget->lowerLimit() << m_ui->releaseWidget->upperLimit() << m_ui->releaseWidget->value();
+    
+    //wave form / bool
+    fo << m_ui->radioButton->isChecked() << m_ui->radioButton_2->isChecked() << m_ui->radioButton_3->isChecked() << m_ui->radioButton_4->isChecked();
+    
+    //playback settings / int 
+    fo << m_ui->comboBox->currentIndex();
+    
+    //fir scaling function / QString
+    fo << m_ui->lineEdit->text();
+    
+    //fir parameters: until end; double
+    for(int i=0; i<m_param_edits.size(); ++i)
+    {
+        fo << m_param_edits[i]->lowerLimit() << m_param_edits[i]->upperLimit() << m_param_edits[i]->value();
+    }
+    
+    f.close();
+    
+    m_saved = true;
 }

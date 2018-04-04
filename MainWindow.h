@@ -37,15 +37,29 @@ public:
     MainWindow(const QApplication &app, QWidget *parent=0);
     virtual ~MainWindow();
     
+    void setSaved(bool saved);
+    
 private slots:
     void updateShader();
     void tick();
+    void fileNew();
+    void fileOpen();
+    void startPlay();
+    void fileExit();
+    void fileSave();
+    void fileSaveAs();
+    void shaderExport();
     
 private:
     Ui::MainWindow *m_ui;
     QList<ParamEdit *> m_param_edits;
     QString m_shader_source;
     QTimer *m_timer;
+    bool m_saved;
+    QString m_filename;
+    
+    void reset();
+    void open();
 };
 
 #endif

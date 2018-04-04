@@ -39,11 +39,18 @@ public:
     void setValue(double val);
     double value();
     
+    double lowerLimit();
+    double upperLimit();
+    void setLowerLimit(double val);
+    void setUpperLimit(double val);
+    
 private slots:
     void valueChanged();
     void knobTurned();
     void lowChanged();
     void highChanged();
+    
+    void updateControls();
     
 private:
     Ui::ParamEdit *m_ui;
