@@ -20,8 +20,8 @@
 #ifndef PARAM_EDIT_H
 #define PARAM_EDIT_H
 
-#include <qt5/QtWidgets/QWidget>
-#include <qt5/QtCore/QString>
+#include <QtWidgets/QWidget>
+#include <QtCore/QString>
 
 namespace Ui { class ParamEdit; }
 

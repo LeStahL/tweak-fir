@@ -20,10 +20,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <qt5/QtWidgets/QMainWindow>
-#include <qt5/QtWidgets/QWidget>
-#include <qt5/QtCore/QList>
-#include <qt5/QtCore/QTimer>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QWidget>
+#include <QtCore/QList>
+#include <QtCore/QTimer>
 
 #include "ParamEdit.h"
 

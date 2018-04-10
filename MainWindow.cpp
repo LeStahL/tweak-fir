@@ -20,11 +20,11 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
-#include <QFile>
-#include <QDataStream>
-#include <QTextStream>
-#include <QFileDialog>
-#include <QMessageBox>
+#include <QtCore/QFile>
+#include <QtCore/QDataStream>
+#include <QtCore/QTextStream>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QMessageBox>
 
 MainWindow::MainWindow(const QApplication &app, QWidget *parent)
     : QMainWindow(parent, 0)

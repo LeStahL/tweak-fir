@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <qt5/QtWidgets/QApplication>
+#include <QtWidgets/QApplication>
 
 #include "MainWindow.h"
 
