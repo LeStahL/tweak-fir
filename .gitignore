@@ -34,3 +34,5 @@
 build
 *.kdev4
 *.kate-swp
+CMakeSettings.json
+.vs*
